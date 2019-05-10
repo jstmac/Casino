@@ -5,9 +5,6 @@ require "colorize"
 class Roshambo
    
     def initialize
-    @hand = [
-      
-    ]
 
     puts "Welcome to the craziness of Roshambo!"
 
@@ -20,10 +17,30 @@ class Roshambo
 
     puts "Nice choice...let's put it to the test"
 
-    sleep(3)
+    sleep(2)
 
-    Puts "Dealer says..."
-    
+    puts "Dealer says..."
+
+    @dealer_choice = [1, 2, 3]
+
+    def dealer_roll
+         @dealer_choice[rand(@dealer_choice.length)]       
+    end
+
+case dealer_roll
+    when 1
+        puts "Rock"
+    when 2
+        puts "Paper"
+    when 3
+        puts "Scissors"
+    end
+
+    #  if input = 1
+
+
+
+
         
 
     
