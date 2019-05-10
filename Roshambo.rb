@@ -21,16 +21,23 @@ class Roshambo
 
     puts "Dealer says..."
 
-    @dealer_choice = ["Rock", "Paper", "Scissors"]
+    @dealer_choice = [1, 2, 3]
 
     def dealer_roll
          @dealer_choice[rand(@dealer_choice.length)]       
     end
 
-    puts dealer_roll
+case dealer_roll
+    when 1
+        puts "Rock"
+    when 2
+        puts "Paper"
+    when 3
+        puts "Scissors"
+    end
 
-    
-     if 1 
+    #  if input = 1
+
 
 
 
