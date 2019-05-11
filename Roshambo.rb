@@ -4,7 +4,8 @@ require "colorize"
 
 class Roshambo
    
-    def initialize
+    def initialize(wallet)
+        @wallet = wallet
         greet
     end
 
@@ -75,6 +76,7 @@ class Roshambo
                 greet
             when 2
                 puts "Until next time...sayonara!"
+                return @wallet
             end
     end
         
