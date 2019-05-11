@@ -49,10 +49,21 @@ def result
     case true
      when @input == @dealer_roll
         puts "It's a tie!"
+
      when @input == 1 && @dealer_roll == 2
-        puts "Rock crushes Scissors...You Win!"
+        puts "Paper covers rock...You Lose!"
      when @input == 1 && @dealer_roll == 3
-        puts "Scissors cuts paper...You Lose!"
+        puts "Rock crushes scissors...You Win!"
+
+    when @input == 2 && @dealer_roll == 1
+        puts "Paper covers rock...You Win!"
+    when @input == 2 && @dealer_roll == 3
+        puts "Scissors cut paper...You Lose!"
+
+    when @input == 3 && @dealer_roll == 1
+        puts "Rock crushes scissors...You Lose!"
+    when @input == 3 && @dealer_roll == 2
+        puts "Scissors cut paper...You Win!"
     end
 
 end
