@@ -5,39 +5,43 @@ require "colorize"
 class Roshambo
    
     def initialize
-
-    puts "Welcome to the craziness of Roshambo!"
-
-    puts "Get Ready, Set, Choose Your Poison!"
-
-    puts "1) Rock"
-    puts "2) Paper"
-    puts "3) Scissors"
-    @input = gets.to_i
-
-    puts "Nice choice...let's put it to the test"
-    
-    sleep(1.5)
-
-    puts "Dealer says..."
-
-    @dealer_choice = [1, 2, 3]
-
-    dealer_roll
-    case @dealer_roll
-    when 1
-        puts "Rock"
-    when 2
-        puts "Paper"
-    when 3
-        puts "Scissors"
+        greet
     end
-    
-    sleep(1.5)
 
-    result
-    
-    
+    def greet
+        puts "Welcome to the craziness of Roshambo!"
+
+        puts "Get Ready, Set, Choose Your Poison!"
+
+        puts "1) Rock"
+        puts "2) Paper"
+        puts "3) Scissors"
+        @input = gets.to_i
+
+        puts "Nice choice...let's put it to the test"
+        sleep(1.5)
+        dealer
+    end
+
+    def dealer
+        puts "Dealer says..."
+
+        @dealer_choice = [1, 2, 3]
+
+        dealer_roll
+        case @dealer_roll
+        when 1
+            puts "Rock"
+        when 2
+            puts "Paper"
+        when 3
+            puts "Scissors"
+        end
+        
+        sleep(1.5)
+
+        result
+    end  
 end
 
 def dealer_roll
@@ -45,8 +49,7 @@ def dealer_roll
 end
 
 def result
-   
-    case true
+     case true
      when @input == @dealer_roll
         puts "It's a tie!"
 
@@ -66,20 +69,7 @@ def result
         puts "Scissors cut paper...You Win!"
     end
 
-end
 
-    
-
-
-
-
-        
-
-    
-
-
-
-  
 end
 
 roshambo = Roshambo.new
