@@ -3,8 +3,8 @@ require "colorize"
 
 
 class Roulette
-  def initialize
-  
+  def initialize(wallet)
+    @player_wallet = wallet
   end
 
   def spin
@@ -31,26 +31,38 @@ class Roulette
   end
 
   def greet
-    puts "hello" end
+    puts "You lost 5 credits, you have #{@player_wallet} remaining" 
+    return @player_wallet -= 5
+
+  end
 
   def place_bet()
-
+    valid_bets = [
+      "Color",
+      "Number",
+      "Even",
+      "Odd",
+      "Low",
+      "High",
+      
+    ]
     #bet on 
 
     # case
     # when color # Green, Red or Black
     # when even # even or odd
     # when low # low (1-18) or high (19-36)
-    # when number
+    # when number 
     # end 
 
 
   end
+
 end
 
 
-roulette = Roulette.new
-roulette.greet
+# roulette = Roulette.new(50)
+# roulette.greet
 #puts test.spin
 
 
