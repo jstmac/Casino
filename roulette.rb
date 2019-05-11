@@ -30,9 +30,10 @@ class Roulette
     return spin_result   
   end
 
-  def greet
+  def greet_lette
+    @player_wallet -= 5
     puts "You lost 5 credits, you have #{@player_wallet} remaining" 
-    return @player_wallet -= 5
+    return @player_wallet
 
   end
 

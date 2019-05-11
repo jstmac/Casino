@@ -6,10 +6,10 @@ class Roshambo
    
     def initialize(wallet)
         @wallet = wallet
-        greet
+        
     end
 
-    def greet
+    def greet_r
         puts "Get Ready, Set, Choose Your Poison!"
         puts "1) Rock"
         puts "2) Paper"
@@ -83,4 +83,4 @@ class Roshambo
 
 end
 
-roshambo = Roshambo.new
+# roshambo = Roshambo.new
