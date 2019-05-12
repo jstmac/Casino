@@ -3,7 +3,7 @@ require "colorize"
 
 
 class Roulette
-  def initialize(wallet)
+  def initialize(wallet,name)
     @player_wallet = wallet
     @valid_bets = [
       "Color",
@@ -19,6 +19,7 @@ class Roulette
     @bet_types = ["color","range"]
 
 
+    @name = name
   end
 
   def spin
@@ -138,8 +139,8 @@ class Roulette
 end
 
 
-# roulette = Roulette.new(50)
-# roulette.greet
+roulette = Roulette.new(50, "bill")
+roulette.greet
 
 
 

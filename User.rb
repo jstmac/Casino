@@ -1,41 +1,70 @@
 require "colorize"
-require_relative 'Wallet'
+
 require "pry"
 
-class Wallet
+# class Wallet
 
-  attr_accessor :amount
+#   attr_accessor :amount
   
-  def initialize(amount)
-    @amount = amount
-  end
+#   def initialize(amount)
+#     @amount = amount
+#   end
 
-end
+# end
 
-class Player < Wallet
+class Player 
   attr_accessor :name, :age, :wallet
 
-  def initialize
-    puts "What is your name, player?".white
-    @name = gets.strip
-    puts "What is your age #{@name}?".white
+  def initialize(wallet, name)
+    @wallet = wallet
+    @name = name
+    @age = age
+  end
+  def greet_u
+
+
+    puts "\n                        What is your name, player?".colorize(:blue)
+    name = gets.strip
+
+
+    seperator
+    puts "\n                        What is your age #{@name.upcase.colorize(:red)}?".colorize(:blue)
     @age = gets.to_i
+    seperator
     if @age < 21
-      puts "Sorry #{@name}, you need to be at least 21 to enter.".red
+      seperator
+      puts "           Sorry #{@name}, you need to be at least 21 to enter.".red
+      seperator
       exit
     end
-    puts "How much money are you playing with #{@name}"
-    amount = gets.to_i
-    if amount < 1
-      puts "Please enter a valid amount."
-      Player.new
+    @name = name
+  def get_money
+    print`clear`
+    seperator
+      puts "                How much money are you playing with #{@name.upcase.colorize(:red)}".colorize(:blue)
+      amount = gets.to_i
+      seperator
+      @wallet = amount
     end
-    @wallet = Wallet.new(amount)
-    binding.pry
+    # if amount < 1
+    #   puts "Please enter a valid amount."
+    #   Player.new
+    # end
+    @age
+    @name
+
+
+
+  end
+  def seperator
+    puts "\n\n"
+    puts "(*)".colorize(:yellow) *30
+    puts "(*)".colorize(:red) *30
+    puts "(*)".colorize(:yellow) *30
+    puts "\n\n"
   end
   
 end
 
-Player.new
-# binding.pry
+
 
