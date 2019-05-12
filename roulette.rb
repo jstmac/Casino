@@ -143,8 +143,8 @@ class Roulette
 end
 
 
-roulette = Roulette.new(50, "bill")
-roulette.greet
+# roulette = Roulette.new(50, "bill")
+# roulette.greet
 
 
 
