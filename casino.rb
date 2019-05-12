@@ -20,22 +20,18 @@ class Casino
 
   end 
   def greet_c
-    puts "Welcome to Henry's Whore house"
+    print `clear`
+    seperator
+    puts "                       Welcome to POOR MAN'S CASINo".upcase.colorize(:red)
     x = Player.new(@wallet, @name)
     
     @name = x.greet_u
     @wallet = x.get_money
-    
-
-
-
-
-    
   end
   def main_menu
     print `clear`
     seperator
-    puts "Welcome to the Casino #{@name.upcase.colorize(:red)} pick a game".blue
+    puts "                       Welcome to the Casino #{@name.upcase.colorize(:red)} pick a game\n".blue
     puts "1) Roshambo".colorize(:blue)
     puts "2) Slots".colorize(:blue)
     puts "3) Roulette".colorize(:blue)
@@ -47,15 +43,15 @@ class Casino
     input = gets.strip.to_i
     case input 
     when 1
-      x = Roshambo.new(@wallet)
+      x = Roshambo.new(@wallet, @name)
       @wallet = x.greet_r
       main_menu
     when 2
-      x = Slots.new(@wallet)
+      x = Slots.new(@wallet, @name)
       @wallet = x.greet_s
       main_menu
     when 3
-      x = Roulette.new(@wallet)
+      x = Roulette.new(@wallet, @name)
       @wallet = x.greet_lette
       main_menu
     when 4
@@ -75,9 +71,9 @@ class Casino
   end
   def seperator
     puts "\n\n"
-    puts "(*)".colorize(:yellow) *40
-    puts "(*)".colorize(:red) *40
-    puts "(*)".colorize(:yellow) *40
+    puts "(*)".colorize(:yellow) *30
+    puts "(*)".colorize(:red) *30
+    puts "(*)".colorize(:yellow) *30
     puts "\n\n"
   end
 end

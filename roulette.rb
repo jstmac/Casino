@@ -33,6 +33,7 @@ class Roulette
   def greet_lette
     @player_wallet -= 5
     puts "You lost 5 credits, you have #{@player_wallet} remaining" 
+    sleep 4
     return @player_wallet
 
   end

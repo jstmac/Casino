@@ -21,18 +21,29 @@ class Player
     @age = age
   end
   def greet_u
-    puts "What is your name, player?"
+
+
+    puts "\n                        What is your name, player?".colorize(:blue)
     name = gets.strip
-    puts "What is your age #{name.upcase.red}?"
+
+
+    seperator
+    puts "\n                        What is your age #{@name.upcase.colorize(:red)}?".colorize(:blue)
     @age = gets.to_i
+    seperator
     if @age < 21
-      puts "Sorry #{@name}, you need to be at least 21 to enter.".red
+      seperator
+      puts "           Sorry #{@name}, you need to be at least 21 to enter.".red
+      seperator
       exit
     end
     @name = name
-    def get_money
-      puts "How much money are you playing with #{@name.upcase.colorize(:red)}"
+  def get_money
+    print`clear`
+    seperator
+      puts "                How much money are you playing with #{@name.upcase.colorize(:red)}".colorize(:blue)
       amount = gets.to_i
+      seperator
       @wallet = amount
     end
     # if amount < 1
@@ -44,6 +55,13 @@ class Player
 
 
 
+  end
+  def seperator
+    puts "\n\n"
+    puts "(*)".colorize(:yellow) *30
+    puts "(*)".colorize(:red) *30
+    puts "(*)".colorize(:yellow) *30
+    puts "\n\n"
   end
   
 end
