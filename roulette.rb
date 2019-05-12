@@ -8,9 +8,9 @@ class Roulette
     @name = name
 
     @valid_bets = [
-    {position: "red", odds: "1:2", payout: 2}, #red
-    {position: "black",odds: "1:2", payout: 2}, #black
-    {position: "green",odds: "1:18", payout: 17}, #green
+    {position: "Red", odds: "1:2", payout: 2}, #red
+    {position: "Black",odds: "1:2", payout: 2}, #black
+    {position: "Green",odds: "1:18", payout: 17}, #green
     {position: "Number",odds: "1:38", payout: 37},
     {position: "1st Dozen",odds: "1:3.16", payout: 3},
     {position: "2nd Dozen",odds: "1:3.16", payout: 3},
@@ -139,8 +139,8 @@ class Roulette
 end
 
 
-roulette = Roulette.new(50, "bill")
-roulette.greet
+# roulette = Roulette.new(50, "bill")
+# roulette.greet
 
 
 
