@@ -3,8 +3,9 @@ require "colorize"
 
 
 class Roulette
-  def initialize(wallet)
+  def initialize(wallet,name)
     @player_wallet = wallet
+    @name = name
   end
 
   def spin

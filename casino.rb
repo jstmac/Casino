@@ -13,8 +13,6 @@ class Casino
     
     @wallet = 0
     @name = ""
-    # @name = ""
-    # main_menu
     greet_c
     main_menu
 
@@ -36,7 +34,8 @@ class Casino
     puts "2) Slots".colorize(:blue)
     puts "3) Roulette".colorize(:blue)
     puts "4) Check funds".colorize(:blue)
-    puts "5) Exit".colorize(:blue)
+    puts "5) New Player".colorize(:blue)
+    puts "6) Exit".colorize(:blue)
     seperator
 
 
@@ -58,11 +57,13 @@ class Casino
       print`clear`
       seperator
       
-      puts "\n                                 Wallet = $#{@wallet}".colorize(:green)
+      puts "\n                                 #{@name}: $#{@wallet}".colorize(:green)
       seperator
       sleep 3
       main_menu
     when 5
+      Casino.new
+    when 6
       exit 
     else
       puts "invalid option"
@@ -78,18 +79,3 @@ class Casino
   end
 end
 Casino.new
-# def main_menu
-#   puts "1) pick one"
-#   input = gets.to_i
-#   case input
-#   when 1
-    
-#     x =Roulette.new(@wallet)
-#     @wallet = x.greet
-    
-#     goodbye
-    
-#     puts "they taste great"
-#     sleep 2
-#   end
-# end
