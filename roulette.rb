@@ -8,13 +8,13 @@ class Roulette
     @name = name
 
     @valid_bets = [
-    {position: "red", odds: "1:2", payout: 2, range:""}, #red
-    {position: "black",odds: "1:2", payout: 2, range:""}, #black
-    {position: "green",odds: "1:18", payout: 17, range:""}, #green
-    {position: "Number",odds: "1:1", payout: 2, range:0},
-    {position: "1st Dozen",odds: "1:1", payout: 2, range:0},
-    {position: "2nd Dozen",odds: "1:1", payout: 2, range:0},
-    {position: "3rd Dozen",odds: "1:1", payout: 2, range:0}
+    {position: "red", odds: "1:2", payout: 2}, #red
+    {position: "black",odds: "1:2", payout: 2}, #black
+    {position: "green",odds: "1:18", payout: 17}, #green
+    {position: "Number",odds: "1:38", payout: 37},
+    {position: "1st Dozen",odds: "1:3.16", payout: 3},
+    {position: "2nd Dozen",odds: "1:3.16", payout: 3},
+    {position: "3rd Dozen",odds: "1:3.16", payout: 3}
     ]
   end
 
@@ -44,7 +44,7 @@ class Roulette
     system "clear"
     puts "You can bet on"
     @valid_bets.each_with_index do |b, i|
-      puts "#{i+1}) #{b[:position]}"
+      puts "#{i+1}) #{b[:position]} #{b[:odds]} #{b[:payout]}"
     end
     case gets.strip.to_i
     when 1
