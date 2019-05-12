@@ -5,21 +5,17 @@ require "colorize"
 class Roulette
   def initialize(wallet,name)
     @player_wallet = wallet
-    @valid_bets = [
-      "Color",
-      "Number",
-      "Even",
-      "Odd",
-      "Low",
-      "High"
-    ]
-
-    @colors = ["red","black", "green"]
-    @bet_position = {color:"", range:[], payout: 0}
-    @bet_types = ["color","range"]
-
-
     @name = name
+
+    @valid_bets = [
+    {position: "red", odds: "1:2", payout: 2, range:""}, #red
+    {position: "black",odds: "1:2", payout: 2, range:""}, #black
+    {position: "green",odds: "1:18", payout: 17, range:""}, #green
+    {position: "Number",odds: "1:1", payout: 2, range:0},
+    {position: "1st Dozen",odds: "1:1", payout: 2, range:0},
+    {position: "2nd Dozen",odds: "1:1", payout: 2, range:0},
+    {position: "3rd Dozen",odds: "1:1", payout: 2, range:0}
+    ]
   end
 
   def spin
@@ -48,38 +44,28 @@ class Roulette
     system "clear"
     puts "You can bet on"
     @valid_bets.each_with_index do |b, i|
-      puts "#{i+1}) #{b}"
+      puts "#{i+1}) #{b[:position]}"
     end
-
-    print "Where would you like to place your bet? : "
     case gets.strip.to_i
     when 1
-      puts "1) Red - Payout 1:1 Odds: 47.3%\n2) Black - Payout 1:1 Odds: 47.3%\n3) Green - Payout 1:1 Odds: 5.2%\n"
-      print "What color? :"
-      case gets.strip.to_i
-      when 1
-        @bet_position[:color] = "red"
-        @bet_position[:payout] = 2
-        return 1
-      when 2
-        @bet_position[:color] = "black"
-        @bet_position[:payout] = 2
-        return 1
-      when 3
-        @bet_position[:color] = "green"
-        @bet_position[:payout] = 17
-        return 1
-      else
-        puts "invalid selection"
-      end
-
+      return {color: "red", range:"", bet_table:1}
     when 2
-      print "What number? (0, 00, 1-36): "
-
+      return {color: "black", range:"", bet_table:2}
     when 3
+      return {color: "black", range:"", bet_table:3}
     when 4
+      print "What number? (0, 00, 1-36): "
+      selection = gets.strip
+      if selection == "00" #handle double zero '00'
+        return {color:"", range:37..37, bet_table:4}
+      end
+      return {color:"", range:selction.to_i..selection.to_i, bet_table:4}
     when 5
+      return {color:"", range:1..12, bet_table:5}
     when 6
+      return {color:"", range:13..24, bet_table:6}
+    when 7
+      return {color:"", range:25..36, bet_table:7}
     else
     end
   end
@@ -91,7 +77,7 @@ class Roulette
     bet = gets.strip.to_i
     case 
     when bet.to_i > @player_wallet
-      puts "I'm sorry [sir][madam] you dont seem to have enough to cover the bet."
+      puts "I'm sorry #{@name} you dont seem to have enough to cover the bet."
       sleep(3)
       get_wager
     when bet.to_i <= @player_wallet  
@@ -101,32 +87,36 @@ class Roulette
     end
   end
   
-  def start_game
-    wager = get_wager
-    bet_type = place_bet
-    result = spin
-    puts @bet_position
-    puts result
-    case bet_type
-    when 1
-      if result[:color] == @bet_position[:color]
-        @player_wallet += wager * @bet_posistion[:payout]
-        puts "you won"
-      elsif
-        @player_wallet -= wager
-        puts "You lost $#{wager}, you have $#{@player_wallet} remaining." 
-        sleep(3)
-      end
-    when 2
-    end
+  def won(wager, bet)
+    winnings = wager * @valid_bets[bet[:bet_table]][:payout]
+    @player_wallet += winnings
+    puts "You won #{winnings}!"
   end
 
-  def greet
-    system "clear"
-    puts "--- DPL Roulette ---"
-    print "Good evening [sir][madam], would you like to place a bet? [y/N]: "
-    if gets.strip.downcase == "y"
-      start_game
+  def lost(wager)
+    @player_wallet -= wager
+    puts "You lost $#{wager}, you have $#{@player_wallet} remaining." 
+  end
+
+  def start_game
+    wager = get_wager #gets the monetary value of the bet
+    bet = place_bet #lets the player select the color or position of his bet
+    result = spin #gets the spin result
+    puts bet
+    puts result
+    case bet[:bet_table]
+    when 1,2,3
+      if result[:color] == bet[:color]
+        won(wager, bet)
+      elsif
+        lost(wager)
+      end
+    when 4,5,6,7
+      if bet[:range] == result[:number]
+        won(wager, bet)
+      elsif
+        lost(wager)
+      end
     end
     print "Would you like to play again?"
     if gets.strip.downcase == "y"
@@ -134,6 +124,16 @@ class Roulette
     end
     puts "Thanks for playing!"
     sleep(3)
+  end
+
+  def greet
+    system "clear"
+    puts "--- DPL Roulette ---"
+    print "Good evening #{@name}, would you like to place a bet? [y/N]: "
+    if gets.strip.downcase == "y"
+      start_game
+    end
+    
     return @player_wallet
   end
 end
