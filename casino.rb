@@ -11,7 +11,9 @@ class Casino
   attr_accessor
   def initialize
     
-    @wallet = 50
+    @wallet = 0
+    @name = ""
+    # @name = ""
     # main_menu
     greet_c
     main_menu
@@ -19,21 +21,29 @@ class Casino
   end 
   def greet_c
     puts "Welcome to Henry's Whore house"
-    x = Player.new(@wallet)
-    @wallet = x.greet_u
+    x = Player.new(@wallet, @name)
+    
+    @name = x.greet_u
+    @wallet = x.get_money
+    
+
+
 
 
     
   end
   def main_menu
-    puts "Welcome to the Casino pick a game"
-    puts "1) Roshambo"
-    puts "2) Slots"
-    puts "3) Roulette"
-    puts "4) Check funds"
-    puts "5) Exit"
+    print `clear`
+    seperator
+    puts "Welcome to the Casino #{@name.upcase.colorize(:red)} pick a game".blue
+    puts "1) Roshambo".colorize(:blue)
+    puts "2) Slots".colorize(:blue)
+    puts "3) Roulette".colorize(:blue)
+    puts "4) Check funds".colorize(:blue)
+    puts "5) Exit".colorize(:blue)
+    seperator
 
-# binding.pry
+
     input = gets.strip.to_i
     case input 
     when 1
@@ -49,7 +59,12 @@ class Casino
       @wallet = x.greet_lette
       main_menu
     when 4
-      puts "Wallet = $#{@wallet}"
+      print`clear`
+      seperator
+      
+      puts "\n                                 Wallet = $#{@wallet}".colorize(:green)
+      seperator
+      sleep 3
       main_menu
     when 5
       exit 
@@ -57,6 +72,13 @@ class Casino
       puts "invalid option"
       main_menu
     end 
+  end
+  def seperator
+    puts "\n\n"
+    puts "(*)".colorize(:yellow) *40
+    puts "(*)".colorize(:red) *40
+    puts "(*)".colorize(:yellow) *40
+    puts "\n\n"
   end
 end
 Casino.new

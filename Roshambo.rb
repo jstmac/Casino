@@ -10,13 +10,14 @@ class Roshambo
     end
 
     def greet_r
-        puts "Get Ready, Set, Choose Your Poison!"
+        puts "Get Ready, Set, Choose Your Poison!\n 5$ per play. \nYou've got #{@wallet}"
         puts "1) Rock"
         puts "2) Paper"
         puts "3) Scissors"
         @input = gets.to_i
         puts "Nice choice...let's put it to the test"
         sleep(1.5)
+        @wallet -= 5
         dealer
     end
 
@@ -73,7 +74,7 @@ class Roshambo
         choice = gets.to_i
             case choice
             when 1
-                greet
+                greet_r
             when 2
                 puts "Until next time...sayonara!"
                 return @wallet
