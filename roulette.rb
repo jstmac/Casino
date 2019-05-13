@@ -23,15 +23,15 @@ class Roulette
     
     case @result = rand(0...37)
     when 0 || 37
-      spin_result[:color] = "green"
+      spin_result[:color] = "green".colorize(:green)
       if @result == 37
-        spin_result[:number] = "00"
+        spin_result[:number] = "00".colorize(:green)
       end
     else
       if @result % 2 == 0
-        spin_result[:color] = "red"
+        spin_result[:color] = "red".colorize(:red)
       else
-        spin_result[:color] = "black"
+        spin_result[:color] = "black".colorize(:blue)
       end
       spin_result[:number] = "#{@result}"
     end
@@ -40,11 +40,12 @@ class Roulette
 
   def place_bet
     system "clear"
-    puts "--- The Bet Table ---"
+    puts "                  --- The Bet Table ---".colorize(:red)
     @valid_bets.each_with_index do |b, i|
-      puts "#{i+1}) #{b[:position]}  - Odds: #{b[:odds]} - Payout: #{b[:payout]}x"
+      puts "#{i+1}) #{b[:position]}  - Odds: #{b[:odds]} - Payout: #{b[:payout]}x".colorize(:blue)
     end
-    print "What would you like to bet on? : "
+    seperator
+    print "            What would you like to bet on? : ".colorize(:blue)
     case gets.strip.to_i
     when 1
       return {color: "red", range:"", bet_table:1}
@@ -53,7 +54,10 @@ class Roulette
     when 3
       return {color: "black", range:"", bet_table:3}
     when 4
-      print "What number? (0, 00, 1-36): "
+      print `clear`
+      seperator
+      print "What number? (0, 00, 1-36): ".colorize(:blue)
+      seperator
       selection = gets.strip
       if selection == "00" #handle double zero '00'
         return {color:"", range:[37,37], bet_table:4}
@@ -72,15 +76,11 @@ class Roulette
   def get_wager
     system "clear"
     print "You have #{@player_wallet}, how much would you like to wager (0 to quit)?: "
-    
     bet = gets.strip.to_i
     puts bet
-    sleep(2)
     case 
     when bet == 0
-      puts "test"
-      sleep(2)
-      greet
+      greet_lette
     when bet > @player_wallet
       puts "I'm sorry #{@name} you dont seem to have enough to cover the bet."
       sleep(3)
@@ -93,12 +93,13 @@ class Roulette
   def won(wager, bet)
     winnings = wager * @valid_bets[bet[:bet_table]][:payout]
     @player_wallet += winnings
-    puts "You won $#{winnings}!"
+    puts "                  You won $#{winnings}!".upcase.colorize(:blue)
   end
 
   def lost(wager)
     @player_wallet -= wager
-    puts "You lost $#{wager}, you have $#{@player_wallet} remaining." 
+    puts "                  You lost $#{wager}, you have $#{@player_wallet} remaining.".colorize(:red) 
+    sleep 1
   end
 
   def start_game
@@ -106,9 +107,13 @@ class Roulette
     bet = place_bet #lets the player select the color or position of his bet
     result = spin #gets the spin result
     #puts bet[:range]
-    puts "Spinning the wheel..."
+    print `clear`
+    seperator
+    puts "                    Spinning the wheel...".colorize(:green)
+    
     sleep(2)
-    puts "The result is... #{result[:color]} #{result[:number]}"
+    puts "                    The result is... #{result[:color]} #{result[:number]}".colorize(:blue)
+    seperator
     case bet[:bet_table]
     when 1,2,3 #a color based bet
       if result[:color] == bet[:color]
@@ -123,31 +128,42 @@ class Roulette
         lost(wager)
       end
     end
-    print "Would you like to play again?"
+    sleep 2
+    print `clear`
+    seperator
+    sleep 1
+    print "                   Would you like to play again?".colorize(:blue)
     if gets.strip.downcase == "y"
       start_game
     end
-    puts "Thanks for playing!"
-    sleep(3)
+    print`clear`
+    seperator
+    puts "                        Thanks for playing!".colorize(:blue)
+    seperator
+    sleep(2)
   end
-
-  def greet
+  def seperator
+    puts "\n\n"
+    puts "(*)".colorize(:yellow) *30
+    puts "(*)".colorize(:red) *30
+    puts "(*)".colorize(:yellow) *30
+    puts "\n\n"
+  end
+  def greet_lette
     system "clear"
-    puts "--- DPL Roulette ---"
-    print "Good evening #{@name}, would you like to place a bet? [y/N]: "
+    seperator
+    puts "                 ------------------- DPL Roulette ---------------------\n".colorize(:red)
+    print "                Good evening #{@name}, would you like to place a bet? [y/n]: ".colorize(:blue)
+    seperator
     if gets.strip.downcase == "y"
       start_game
     end
     
     return @player_wallet
   end
+  
 end
 
 
- roulette = Roulette.new(50, "bill")
- roulette.greet
-
-
-
-
-
+# roulette = Roulette.new(50, "bill")
+# roulette.greet_lette
