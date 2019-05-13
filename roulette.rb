@@ -23,15 +23,15 @@ class Roulette
     
     case @result = rand(0...37)
     when 0 || 37
-      spin_result[:color] = "green".colorize(:green)
+      spin_result[:color] = "Green"
       if @result == 37
-        spin_result[:number] = "00".colorize(:green)
+        spin_result[:number] = "00"
       end
     else
       if @result % 2 == 0
-        spin_result[:color] = "red".colorize(:red)
+        spin_result[:color] = "Red"
       else
-        spin_result[:color] = "black".colorize(:blue)
+        spin_result[:color] = "Black"
       end
       spin_result[:number] = "#{@result}"
     end
@@ -48,11 +48,11 @@ class Roulette
     print "            What would you like to bet on? : ".colorize(:blue)
     case gets.strip.to_i
     when 1
-      return {color: "red", range:"", bet_table:1}
+      return {color: "Red", range:"", bet_table:1}
     when 2
-      return {color: "black", range:"", bet_table:2}
+      return {color: "Black", range:"", bet_table:2}
     when 3
-      return {color: "black", range:"", bet_table:3}
+      return {color: "Green", range:"", bet_table:3}
     when 4
       print `clear`
       seperator
@@ -114,9 +114,14 @@ class Roulette
     sleep(2)
     puts "                    The result is... #{result[:color]} #{result[:number]}".colorize(:blue)
     seperator
+    puts "#{bet[:color]}"
+    puts "#{bet[:bet_table]}"
+    puts "#{result[:color]}"
     case bet[:bet_table]
-    when 1,2,3 #a color based bet
-      if result[:color] == bet[:color]
+    when 1..3 #a color based bet
+      puts "color"
+      if result[:color] === bet[:color]
+        puts "hi"
         won(wager, bet)
       elsif
         lost(wager)
@@ -128,7 +133,7 @@ class Roulette
         lost(wager)
       end
     end
-    sleep 2
+    sleep 5
     print `clear`
     seperator
     sleep 1
@@ -165,5 +170,5 @@ class Roulette
 end
 
 
-# roulette = Roulette.new(50, "bill")
-# roulette.greet_lette
+ roulette = Roulette.new(50, "bill")
+ roulette.greet_lette
