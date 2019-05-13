@@ -2,16 +2,14 @@
 require "colorize"
 require"pry"
 
-
 class Roulette
   def initialize(wallet,name)
     @player_wallet = wallet
     @name = name
-
     @valid_bets = [
-    {position: "Red", odds: "1:2", payout: 2}, #red
-    {position: "Black",odds: "1:2", payout: 2}, #black
-    {position: "Green",odds: "1:18", payout: 17}, #green
+    {position: "Red", odds: "1:2", payout: 2}, 
+    {position: "Black",odds: "1:2", payout: 2}, 
+    {position: "Green",odds: "1:18", payout: 17}, 
     {position: "Single Number",odds: "1:38", payout: 37},
     {position: "1-12",odds: "1:3.16", payout: 3},
     {position: "13-24",odds: "1:3.16", payout: 3},
@@ -39,7 +37,6 @@ class Roulette
     end
     return spin_result   
   end
-
 
   def place_bet
     system "clear"
@@ -74,18 +71,22 @@ class Roulette
 
   def get_wager
     system "clear"
-    print "You have #{@player_wallet}, how much would you like to wager (or QUIT)?: "
+    print "You have #{@player_wallet}, how much would you like to wager (0 to quit)?: "
     
-    bet = gets.strip.downcase
+    bet = gets.strip.to_i
+    puts bet
+    sleep(2)
     case 
-    when bet.to_i > @player_wallet
+    when bet == 0
+      puts "test"
+      sleep(2)
+      greet
+    when bet > @player_wallet
       puts "I'm sorry #{@name} you dont seem to have enough to cover the bet."
       sleep(3)
       get_wager
-    when bet.to_i <= @player_wallet  
-      return bet.to_i
-    when bet == ["quit", "0"]
-      greet
+    when bet <= @player_wallet  
+      return bet
     end
   end
   
@@ -143,8 +144,8 @@ class Roulette
 end
 
 
-# roulette = Roulette.new(50, "bill")
-# roulette.greet
+ roulette = Roulette.new(50, "bill")
+ roulette.greet
 
 
 
